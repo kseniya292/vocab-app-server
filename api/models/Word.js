@@ -15,7 +15,7 @@ module.exports = {
       type: 'json'
     },
     example: {
-      type: 'string'
+      type: 'json'
     },
     lexicalCategory: {
       type: 'string'

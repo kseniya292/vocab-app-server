@@ -10,7 +10,8 @@
 
 module.exports.routes = {
 
-  'post /define': 'WordController.define'
+  'post /define': 'WordController.define',
+  'post /save': 'WordController.save'
 
   /***************************************************************************
   *                                                                          *

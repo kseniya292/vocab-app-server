@@ -25,7 +25,7 @@ module.exports = {
       word.name = vocabword;
       word.type = response.results[0].lexicalEntries[0].lexicalCategory;
       word.definition = [];
-      word.examples = [];
+      word.example = [];
       let senses = response.results[0].lexicalEntries[0].entries[0].senses;
 
       Object.values(senses).forEach(value => {
@@ -38,6 +38,34 @@ module.exports = {
     .catch(err => {
       res.send(err.statusCode);
     });
+  },
+
+  save: (req, res) => {
+    Word.findOne({
+      name: req.param('name')
+    })
+    .exec((err, word) => {
+      if (err) {
+        return res.json(err);
+      } else if (!word) {
+        Word.create({
+          name: req.param('name'),
+          lexicalCategory: req.param('lexicalCategory'),
+          definition: req.param('definition'),
+          example: req.param('example'),
+        })
+        .fetch()
+        .exec((err, words) => {
+          if (err) {
+            return err;
+          }
+          return res.json(words);
+        });
+      } else {
+        return res.json('Word already saved');
+      }
+    });
+
   }
 };
 
